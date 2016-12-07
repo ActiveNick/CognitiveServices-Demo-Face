@@ -25,13 +25,15 @@ namespace CognitiveServices_Demo_Face
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        // TO DO: Get your own Cognitive Services Face API key, don't use mine as I might have regenerated them.
+        // Get your own at https://www.microsoft.com/cognitive-services/en-us/face-api.
         private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("42a0518d83254280813a6be663535131");
         FaceRectangle[] _faceRectangles;
 
         public MainPage()
         {
             this.InitializeComponent();
-            UploadAndDetectFaces("ms-appx:///Assets/StoreLogo.png");
+            UploadAndDetectFaces("NickLandry-headshot-sq.jpg");
         }
 
         async void UploadAndDetectFaces(string imageFilePath)
@@ -40,15 +42,16 @@ namespace CognitiveServices_Demo_Face
             {
                 StorageFolder appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
                 StorageFolder assets = await appInstalledFolder.GetFolderAsync("Assets");
-                var storageFile = await assets.GetFileAsync("NickLandry-headshot-sq.jpg");
+                var storageFile = await assets.GetFileAsync(imageFilePath);
                 var randomAccessStream = await storageFile.OpenReadAsync();
 
                 using (Stream stream = randomAccessStream.AsStreamForRead())
                 {
-                    //this is the fragment where face is recognized:
+                    // This is the fragment where the face is recognized:
                     var faces = await faceServiceClient.DetectAsync(stream);
                     var faceRects = faces.Select(face => face.FaceRectangle);
                     _faceRectangles = faceRects.ToArray();
+                    // Forces a redraw on the canvas control
                     CustomCanvas.Invalidate();
                 }
             }
@@ -58,6 +61,11 @@ namespace CognitiveServices_Demo_Face
             }
         }
 
+        /// <summary>
+        /// Draw a rectange around the face detected on the picture 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         void canvasControl_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             if (_faceRectangles != null)
