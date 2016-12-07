@@ -1,7 +1,9 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "Microsoft.ProjectOxford.Face": "1.1.0",
+    "Microsoft.ProjectOxford.Common": "1.0.308",
+    "Microsoft.ProjectOxford.Face": "1.2.1.2",
+    "Microsoft.ProjectOxford.Vision": "1.0.370",
     "Win2D.uwp": "1.18.0"
   },
   "frameworks": {
