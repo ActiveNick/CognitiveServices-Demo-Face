@@ -21,7 +21,9 @@ using Windows.UI.Xaml.Navigation;
 namespace CognitiveServices_Demo_Face
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Demonstrates the Cognitive Services Face API to detect face rectangles in photos.
+    /// Uses the Win2D control which provides accelerated graphics on top of DirectX in UWP.
+    /// For more info, see https://github.com/Microsoft/Win2D.
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -71,6 +73,7 @@ namespace CognitiveServices_Demo_Face
             if (_faceRectangles != null)
                 if (_faceRectangles.Length > 0)
                 {
+                    // Loop through all face rectangles since a single photo can have multiple people in it
                     foreach (var faceRect in _faceRectangles)
                     {
                         args.DrawingSession.DrawRectangle(faceRect.Left, faceRect.Top, faceRect.Width, faceRect.Height, Colors.Blue);

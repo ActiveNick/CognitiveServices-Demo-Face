@@ -10,6 +10,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Image Source="Assets/NickLandry-headshot-sq.jpg" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <!-- Uses the Win2D control which provides accelerated graphics on top of DirectX in UWP -->
         <win2d:CanvasControl Draw="canvasControl_Draw" x:Name="CustomCanvas" />
     </Grid>
 </Page>
